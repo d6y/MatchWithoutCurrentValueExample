@@ -29,7 +29,7 @@ class Boot {
         case _   => Empty
       }
 
-    // If the value has to be defined; otherwise, show the home page:
+    // A product info value has to be defined; otherwise, show the home page:
     val FallbackToSearchPage =
       IfValue[ProductInfo](_.isDefined, () => RedirectResponse("/"))
 
@@ -38,7 +38,7 @@ class Boot {
     lazy val product = Menu.param[ProductInfo]("product", "Product Detail Page",
       id   => lookup(id),
       info => info.id.toString
-      ) / "product" >> MatchWithoutCurrentValue >> FallbackToSearchPage
+      ) / "product" / * >> MatchWithoutCurrentValue >> FallbackToSearchPage
 
 
     // Build SiteMap
